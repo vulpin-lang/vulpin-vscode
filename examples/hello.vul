@@ -1,0 +1,28 @@
+# Quick smoke-test file for the Vulpin extension.
+name="Armin"
+G"Hello"
+P"Loading..."
+G 5 + 3
+Gname
+
+F add(a, b)
+    R a + b
+~
+G add(3, 4)
+
+score=85
+? score >= 90
+    G"A"
+:
+    G"C"
+;
+
+i=0
+@ i < 3
+    G i
+    i=i+1
+&
+
+O k 0 3
+    G k
+&

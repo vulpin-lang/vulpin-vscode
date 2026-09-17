@@ -1,0 +1,137 @@
+{
+  "name": "vulpin",
+  "displayName": "Vulpin",
+  "description": "Language support for Vulpin (.vul) — syntax highlighting, snippets, run/build tasks, and inline docs for its single-character commands.",
+  "version": "0.1.0",
+  "publisher": "vulpin-lang",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "vulpin",
+    "vul"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vulpin-lang/vulpin-vscode.git"
+  },
+  "icon": "icon.png",
+  "activationEvents": [
+    "onLanguage:vul"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "vul",
+        "aliases": [
+          "Vulpin",
+          "vul"
+        ],
+        "extensions": [
+          ".vul"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "vul",
+        "scopeName": "source.vul",
+        "path": "./syntaxes/vul.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "vul",
+        "path": "./snippets/vul.json"
+      }
+    ],
+    "configuration": {
+      "title": "Vulpin",
+      "properties": {
+        "vulpin.path": {
+          "type": "string",
+          "default": "vulpin",
+          "description": "Path to the vulpin executable used to run/build/debug .vul files."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "vulpin.runFile",
+        "title": "Vulpin: Run File",
+        "icon": "$(play)"
+      },
+      {
+        "command": "vulpin.runFileDebug",
+        "title": "Vulpin: Run with Debug"
+      },
+      {
+        "command": "vulpin.buildProject",
+        "title": "Vulpin: Build Project"
+      },
+      {
+        "command": "vulpin.showVersion",
+        "title": "Vulpin: Show Version"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "vulpin.runFile",
+          "when": "resourceLangId == vul",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "vulpin.runFile",
+          "when": "resourceLangId == vul"
+        },
+        {
+          "command": "vulpin.runFileDebug",
+          "when": "resourceLangId == vul"
+        },
+        {
+          "command": "vulpin.buildProject"
+        },
+        {
+          "command": "vulpin.showVersion"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "vulpin.runFile",
+        "key": "f5",
+        "when": "resourceLangId == vul && !inDebugMode"
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "vulpin",
+        "required": [
+          "action"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "run | debug | build | version"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.32.0"
+  }
+}

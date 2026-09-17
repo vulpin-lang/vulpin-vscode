@@ -1,0 +1,111 @@
+{
+  "If": {
+    "prefix": "if",
+    "body": [
+      "? ${1:condition}",
+      "\t${0:G\"...\"}",
+      ";"
+    ],
+    "description": "If block"
+  },
+  "If Else": {
+    "prefix": "ifelse",
+    "body": [
+      "? ${1:condition}",
+      "\t${2:G\"...\"}",
+      ":",
+      "\t${0:G\"...\"}",
+      ";"
+    ],
+    "description": "If / else block"
+  },
+  "If Else If": {
+    "prefix": "elif",
+    "body": [
+      "? ${1:condition}",
+      "\t${2:G\"...\"}",
+      ":",
+      "? ${3:condition}",
+      "\t${4:G\"...\"}",
+      ":",
+      "\t${0:G\"...\"}",
+      ";",
+      ";"
+    ],
+    "description": "If / else-if / else block"
+  },
+  "While": {
+    "prefix": "while",
+    "body": [
+      "@ ${1:condition}",
+      "\t${0:G\"...\"}",
+      "&"
+    ],
+    "description": "While loop"
+  },
+  "Infinite Loop": {
+    "prefix": "loop",
+    "body": [
+      "@1",
+      "\t${0:G\"Running forever...\"}",
+      "&"
+    ],
+    "description": "Infinite loop"
+  },
+  "For Range": {
+    "prefix": "for",
+    "body": [
+      "O ${1:i} ${2:0} ${3:5}",
+      "\t${0:G $1}",
+      "&"
+    ],
+    "description": "For-range loop"
+  },
+  "Function": {
+    "prefix": "func",
+    "body": [
+      "F ${1:name}(${2:args})",
+      "\tR ${0:result}",
+      "~"
+    ],
+    "description": "Function definition"
+  },
+  "Try Catch": {
+    "prefix": "try",
+    "body": [
+      "T",
+      "\t${1:G\"...\"}",
+      "C\"${2:err}\"",
+      "\t${0:G\"Error: \" + $2}",
+      "Y"
+    ],
+    "description": "Try / catch block"
+  },
+  "Switch": {
+    "prefix": "switch",
+    "body": [
+      "W ${1:value}",
+      "V\"${2:case1}\"",
+      "\t${3:G\"...\"}",
+      "N",
+      "\t${0:G\"unknown\"}",
+      "Z"
+    ],
+    "description": "Switch / case block"
+  },
+  "Input": {
+    "prefix": "input",
+    "body": "K ${1:name} \"${2:Prompt: }\"${3:I}",
+    "description": "Typed input"
+  },
+  "Label": {
+    "prefix": "label",
+    "body": "L ${1:name}",
+    "description": "Define a jump label"
+  },
+  "Jump": {
+    "prefix": "jump",
+    "body": "J ${1:name}",
+    "description": "Jump to a label"
+  }
+}

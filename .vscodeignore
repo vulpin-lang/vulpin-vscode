@@ -1,0 +1,7 @@
+.vscode/**
+.git/**
+node_modules/**
+icon.svg
+main.py
+.venv/**
+.idea/**

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Vul",
+  "scopeName": "source.vul",
+  "fileTypes": ["vul"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#function-def" },
+    { "include": "#input-stmt" },
+    { "include": "#switch-stmt" },
+    { "include": "#namespaced-call" },
+    { "include": "#method-shortcut" },
+    { "include": "#word-operator" },
+    { "include": "#builtin-functions" },
+    { "include": "#assignment-target" },
+    { "include": "#command-letters" },
+    { "include": "#control-symbols" },
+    { "include": "#numbers" },
+    { "include": "#operators" },
+    { "include": "#punctuation" }
+  ],
+  "repository": {
+    "comments": {
+      "name": "comment.line.number-sign.vul",
+      "match": "#.*$"
+    },
+    "strings": {
+      "name": "string.quoted.double.vul",
+      "begin": "\"",
+      "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.vul" } },
+      "end": "\"",
+      "endCaptures": { "0": { "name": "punctuation.definition.string.end.vul" } },
+      "patterns": [
+        { "name": "constant.character.escape.vul", "match": "\\\\." }
+      ]
+    },
+    "function-def": {
+      "begin": "(?<![A-Za-z0-9_])(F)(?=\\s*[A-Za-z_][A-Za-z0-9_]*\\s*\\()",
+      "beginCaptures": { "1": { "name": "keyword.control.vul" } },
+      "end": "(?<=\\))",
+      "patterns": [
+        {
+          "match": "([A-Za-z_][A-Za-z0-9_]*)(\\()",
+          "captures": {
+            "1": { "name": "entity.name.function.vul" },
+            "2": { "name": "punctuation.section.parens.begin.vul" }
+          }
+        },
+        { "match": "[A-Za-z_][A-Za-z0-9_]*", "name": "variable.parameter.vul" },
+        { "match": ",", "name": "punctuation.separator.vul" },
+        { "match": "\\)", "name": "punctuation.section.parens.end.vul" }
+      ]
+    },
+    "input-stmt": {
+      "begin": "(?<![A-Za-z0-9_])(K)(?=\\s*[A-Za-z_])",
+      "beginCaptures": { "1": { "name": "keyword.control.vul" } },
+      "end": "$",
+      "patterns": [
+        { "include": "#strings" },
+        { "match": "\\b[IFNLWEUAP]\\b", "name": "storage.type.vul" },
+        { "match": "[A-Za-z_][A-Za-z0-9_]*", "name": "variable.other.readwrite.vul" }
+      ]
+    },
+    "switch-stmt": {
+      "begin": "(?<![A-Za-z0-9_])(W)(?=\\s*[A-Za-z_])",
+      "beginCaptures": { "1": { "name": "keyword.control.vul" } },
+      "end": "(?<=[A-Za-z0-9_])|(?=[^\\sA-Za-z0-9_])|$",
+      "patterns": [
+        { "match": "[A-Za-z_][A-Za-z0-9_]*", "name": "variable.other.readwrite.vul" }
+      ]
+    },
+    "namespaced-call": {
+      "match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\.([A-Za-z_][A-Za-z0-9_]*)",
+      "captures": {
+        "1": { "name": "entity.name.namespace.vul" },
+        "2": { "name": "entity.name.function.vul" }
+      }
+    },
+    "method-shortcut": {
+      "match": "\\.([A-Za-z_][A-Za-z0-9_]*)",
+      "captures": { "1": { "name": "entity.name.function.vul" } }
+    },
+    "word-operator": {
+      "match": "\\bin\\b",
+      "name": "keyword.operator.word.vul"
+    },
+    "builtin-functions": {
+      "match": "\\b(len|push|pop|keys|values)\\b",
+      "name": "support.function.vul"
+    },
+    "assignment-target": {
+      "match": "\\b([A-Za-z_][A-Za-z0-9_]*)(?=\\s*=(?!=))",
+      "captures": { "1": { "name": "variable.other.assignment.vul" } }
+    },
+    "command-letters": {
+      "match": "(?<![A-Za-z0-9_])[ACDFGJKLNOPQRSTUVWYZ]",
+      "name": "keyword.control.vul"
+    },
+    "control-symbols": {
+      "match": "[?@:;&~]",
+      "name": "keyword.control.vul"
+    },
+    "numbers": {
+      "match": "\\d+(\\.\\d+)?",
+      "name": "constant.numeric.vul"
+    },
+    "operators": {
+      "match": "==|!=|<=|>=|[-+*/<>=]",
+      "name": "keyword.operator.vul"
+    },
+    "punctuation": {
+      "patterns": [
+        { "match": "[\\[\\]{}()]", "name": "punctuation.section.vul" },
+        { "match": ",", "name": "punctuation.separator.vul" }
+      ]
+    }
+  }
+}
